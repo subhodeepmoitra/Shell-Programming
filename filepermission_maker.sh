@@ -7,9 +7,12 @@ fi
 
 for num in "$@"; do
 	expr "$num" + 0
-	if [ $? -ne 0 ]; then
+	exit_code=$?
+	if [ "$exit_code" -ne 0 ]; then
+		echo "Failed exit code: $exit_code"
 		echo "Skipping non-neumeric arg"
 	else
+		echo "Success exit code: $exit_code"
 		octal=`echo "ibase=2; obase=8; $num" | bc`
 		echo "Permission is $octal"
 	fi
